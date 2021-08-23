@@ -1,3 +1,4 @@
+
 # peak1.5.tcl - FireEgl@EFNet <FireEgl@LinuxFan.com> - 1/1/00
 
 ### Description:
@@ -39,13 +40,13 @@ proc join:peak {nick host hand chan} {
 }
 
 # Loads the peak data from file if it's not already in memory and returns the data:
-proc getpeak {chan} { global peak datapath
+proc getpeak {chan} { global peak
    set chan [string tolower $chan]
    if {[info exists peak($chan)]} {
       set lastmax [lindex $peak($chan) 0]
       set lastdate [lindex $peak($chan) 1]
    } else {
-      set fid [open "$datapath$chan.peak" "RDONLY CREAT"]
+      set fid [open "peak.$chan.txt" "RDONLY CREAT"]
       set lastmax "[gets $fid]"
       if {$lastmax == ""} { set lastmax 0 }
       set lastdate "[gets $fid]"
@@ -57,10 +58,10 @@ proc getpeak {chan} { global peak datapath
 }
 
 # Sets peak data to file:
-proc setpeak {chan curnum unixtime} { global peak datapath
+proc setpeak {chan curnum unixtime} { global peak
    set chan [string tolower $chan]
    set peak($chan) "$curnum $unixtime"
-   set fid [open "$datapath$chan.peak" "WRONLY CREAT"]
+   set fid [open "peak.$chan.txt" "WRONLY CREAT"]
    puts $fid $curnum
    puts $fid $unixtime
    close $fid

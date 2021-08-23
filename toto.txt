@@ -1,0 +1,7 @@
+modeprot
+msg command
+stats
+dcc stuff
+mode security
+channel checking
+fix set mode
